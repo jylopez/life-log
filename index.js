@@ -6,9 +6,9 @@ var prompt = require('co-prompt')
 
 // Get user's home directory
 var home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']
-var defaultConfigPath = home + '/.life_log_config'
+var defaultConfigPath = home + '/.lfl_config'
 var fileConfigExists = null
-var defaultLifeLogPath = home + '/life_log.txt'
+var defaultLifeLogPath = home + '/lfl.txt'
 var newConfigFile = {
   'notebooks': {
     'default': defaultLifeLogPath
@@ -66,7 +66,7 @@ if (fileConfigExists) {
 // If config doesn't exist, exist it.
 else {
   co(function* () {
-    var notebookPath = yield prompt('First time here ey. Where would you like to store your notebook? (leave blank for ' + home + '/life_log.txt): ')
+    var notebookPath = yield prompt('First time here ey. Where would you like to store your notebook? (leave blank for ' + home + '/lfl.txt): ')
     newConfigFile.notebooks.default = notebookPath ? notebookPath : newConfigFile.notebooks.default
     fs.closeSync(fs.openSync(defaultConfigPath, 'w'))
     fs.writeFileSync(defaultConfigPath, JSON.stringify(newConfigFile, '', 2))
